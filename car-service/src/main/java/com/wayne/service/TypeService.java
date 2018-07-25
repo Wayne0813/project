@@ -1,8 +1,10 @@
 package com.wayne.service;
 
+import com.github.pagehelper.PageInfo;
 import com.wayne.entity.Type;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author LV
@@ -14,4 +16,45 @@ public interface TypeService {
      * @return 所有类型
      */
     List<Type> findAll();
+
+
+    /**
+     * 查找所有并分页
+     * @return 集合
+     */
+    PageInfo<Type> findAllAndLimit(Integer pageNum, Map<String, Object> params);
+
+    /**
+     *  根据类型名称查找
+     * @param addTypeName
+     * @return 对象
+     */
+    Type findByName(String addTypeName);
+
+
+    /**
+     * 保存
+     * @param type
+     */
+    void save(Type type);
+
+    /**
+     * 更新
+     * @param type
+     */
+    void update(Type type);
+
+    /**
+     * 根据id查找对象
+     * @param id
+     * @return
+     */
+    Type findById(Integer id);
+
+
+    /**
+     * 根据id删除对象
+     * @param id
+     */
+    void delete(Integer id);
 }

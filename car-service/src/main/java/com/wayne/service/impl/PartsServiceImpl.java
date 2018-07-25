@@ -3,6 +3,7 @@ package com.wayne.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wayne.entity.Parts;
+import com.wayne.entity.PartsExample;
 import com.wayne.mapper.PartsMapper;
 import com.wayne.service.PartsService;
 import com.wayne.util.Constant;
@@ -54,7 +55,8 @@ public class PartsServiceImpl implements PartsService {
      */
     @Override
     public PageInfo<Parts> findByParams(Integer pageNum, Map<String, Object> params) {
-        PageHelper.startPage(pageNum, Constant.DEFAULT_PAGE_SIZE);
+       PageHelper.startPage(pageNum, Constant.DEFAULT_PAGE_SIZE);
+
         List<Parts> partsList = partsMapper.selectByParams(params);
 
         PageInfo<Parts> pageInfo = new PageInfo<>(partsList);
@@ -82,6 +84,38 @@ public class PartsServiceImpl implements PartsService {
     public void update(Parts parts) {
         partsMapper.updateByPrimaryKeySelective(parts);
         logger.debug("修改配件 : {}", findById(parts.getId()));
+    }
+
+    /**
+     * 根据配配件编码查找对象
+     *
+     * @param partsNo
+     * @return 对象
+     */
+    @Override
+    public Parts findByPartsNo(String partsNo) {
+        PartsExample partsExample = new PartsExample();
+        partsExample.createCriteria().andPartsNoEqualTo(partsNo);
+        List<Parts> partsList = partsMapper.selectByExample(partsExample);
+        Parts parts = null;
+        if(partsList.size() != 0){
+            parts = partsList.get(0);
+        }
+
+        return parts;
+    }
+
+    /**
+     * 根据typeId查找对象
+     *
+     * @param id
+     * @return 集合
+     */
+    @Override
+    public List<Parts> findByTypeId(Integer id) {
+        PartsExample partsExample = new PartsExample();
+        partsExample.createCriteria().andTypeIdEqualTo(id);
+        return partsMapper.selectByExample(partsExample);
     }
 
 

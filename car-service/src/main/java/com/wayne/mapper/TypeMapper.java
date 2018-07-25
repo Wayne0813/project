@@ -3,6 +3,8 @@ package com.wayne.mapper;
 import com.wayne.entity.Type;
 import com.wayne.entity.TypeExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TypeMapper {
@@ -17,6 +19,8 @@ public interface TypeMapper {
     int insertSelective(Type record);
 
     List<Type> selectByExample(TypeExample example);
+
+    List<Type> selectByParams(Map<String,Object> params);
 
     Type selectByPrimaryKey(Integer id);
 

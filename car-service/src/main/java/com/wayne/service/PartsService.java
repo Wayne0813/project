@@ -6,6 +6,7 @@ import com.wayne.mapper.PartsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,4 +49,18 @@ public interface PartsService {
      * @param parts
      */
     void update(Parts parts);
+
+    /**
+     * 根据配配件编码查找对象
+     * @param partsNo
+     * @return 对象
+     */
+    Parts findByPartsNo(String partsNo);
+
+    /**
+     * 根据typeId查找对象
+     * @param id
+     * @return 集合
+     */
+    List<Parts> findByTypeId(Integer id);
 }

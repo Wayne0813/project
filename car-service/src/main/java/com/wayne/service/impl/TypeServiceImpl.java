@@ -1,13 +1,19 @@
 package com.wayne.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wayne.entity.Type;
 import com.wayne.entity.TypeExample;
 import com.wayne.mapper.TypeMapper;
 import com.wayne.service.TypeService;
+import com.wayne.util.Constant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author LV
@@ -15,6 +21,8 @@ import java.util.List;
  */
 @Service
 public class TypeServiceImpl implements TypeService {
+
+    private Logger logger = LoggerFactory.getLogger(TypeServiceImpl.class);
 
     @Autowired
     private TypeMapper typeMapper;
@@ -29,4 +37,87 @@ public class TypeServiceImpl implements TypeService {
         TypeExample typeExample = new TypeExample();
         return typeMapper.selectByExample(typeExample);
     }
+
+    /**
+     * 查找所有并分页
+     *
+     * @return 集合
+     */
+    @Override
+    public PageInfo<Type> findAllAndLimit(Integer pageNum, Map<String, Object> params) {
+        PageHelper.startPage(pageNum, Constant.DEFAULT_PAGE_SIZE);
+
+        List<Type> typeList = typeMapper.selectByParams(params);
+
+        PageInfo<Type> pageInfo = new PageInfo<>(typeList);
+
+        return pageInfo;
+    }
+
+    /**
+     * 根据类型名称查找
+     *
+     * @param addTypeName
+     * @return 对象
+     */
+    @Override
+    public Type findByName(String addTypeName) {
+        TypeExample typeExample = new TypeExample();
+        typeExample.createCriteria().andTypeNameEqualTo(addTypeName);
+
+        List<Type> typeList = typeMapper.selectByExample(typeExample);
+        Type type = null;
+
+
+        if(typeList.size() != 0){
+            type = typeList.get(0);
+        }
+
+        return type;
+    }
+
+    /**
+     * 保存
+     *
+     * @param type
+     */
+    @Override
+    public void save(Type type) {
+        typeMapper.insertSelective(type);
+        logger.debug("新增类型 : {}", type);
+    }
+
+    /**
+     * 更新
+     *
+     * @param type
+     */
+    @Override
+    public void update(Type type) {
+        typeMapper.updateByPrimaryKeySelective(type);
+        logger.debug("更新类型 : {}", type);
+    }
+
+    /**
+     * 根据id查找对象
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Type findById(Integer id) {
+        return typeMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 根据id删除对象
+     *
+     * @param id
+     */
+    @Override
+    public void delete(Integer id) {
+        typeMapper.deleteByPrimaryKey(id);
+    }
+
+
 }

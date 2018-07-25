@@ -106,7 +106,6 @@
         $(".deleteBtn").click(function () {
             var id = $(this).attr("rel");
             var partsNo = $(this).attr("partsNo");
-            layer.msg("delete..." + id);
             layer.prompt({title: '请输入要删除的配件编码,并确认', formType: 3}, function(text, index){
                 if(text.toUpperCase() == partsNo.toUpperCase()){
                     layer.close(index);

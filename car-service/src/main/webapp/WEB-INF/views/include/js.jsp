@@ -9,6 +9,7 @@
 <script src="/static/plugins/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="/static/dist/js/app.min.js"></script>
+<script src="/static/dist/js/jquery.validate.min.js"></script>
 <script src="/static/dist/js/jquery.twbsPagination.min.js"></script>
 <script src="/static/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/static/plugins/daterangepicker/moment.js"></script>

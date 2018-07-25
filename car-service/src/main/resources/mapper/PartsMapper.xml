@@ -207,7 +207,7 @@
       and type_id = #{partsType}
     </if>
     <if test="partsInventory != null and partsInventory != ''">
-      and #{partsInventory} > inventory
+      and #{partsInventory} >= inventory
     </if>
     <if test="partsName != null and partsName != '' ">
       and parts_name LIKE concat('%', #{partsName},'%')

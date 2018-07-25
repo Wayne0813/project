@@ -108,7 +108,7 @@
     insert into type (id, type_name)
     values (#{id,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wayne.entity.Type">
+  <insert id="insertSelective" parameterType="com.wayne.entity.Type" useGeneratedKeys="true" keyProperty="id">
     insert into type
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -133,6 +133,19 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
+  <select id="selectByParams" resultMap="BaseResultMap">
+    SELECT
+        *
+    FROM
+        `type`
+    <where>
+      <if test="keys != null and keys != ''">
+        type_name LIKE concat('%', #{keys}, '%')
+      </if>
+    </where>
+  </select>
+
   <update id="updateByExampleSelective" parameterType="map">
     update type
     <set>

@@ -41,7 +41,7 @@ public class PartsController {
      * @return 跳转list页面
      */
     @GetMapping
-    public String list(@RequestParam(name = "p", defaultValue = "1") Integer pageNum,
+    public String list(@RequestParam(name = "p", defaultValue = "1", required = false) Integer pageNum,
                        String partsName,
                        Integer partsType,
                        Integer partsInventory,
@@ -113,7 +113,12 @@ public class PartsController {
      */
     @PostMapping("/add")
     public String save(Parts parts, RedirectAttributes attributes){
-        partsService.save(parts);
+        Parts parts1 = partsService.findByPartsNo(parts.getPartsNo());
+        if(parts1 != null){
+            partsService.update(parts);
+        } else {
+            partsService.save(parts);
+        }
 
         attributes.addFlashAttribute("message", "保存成功!");
         return "redirect:/parts";
@@ -148,6 +153,13 @@ public class PartsController {
         partsService.update(parts);
         attributes.addFlashAttribute("message", "修改成功");
         return "redirect:/parts";
+    }
+
+    @ResponseBody
+    @PostMapping("/check")
+    public Object check(String partsNo){
+        Parts parts = partsService.findByPartsNo(partsNo);
+        return parts;
     }
 
 
