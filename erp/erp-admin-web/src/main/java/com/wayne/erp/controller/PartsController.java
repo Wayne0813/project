@@ -1,11 +1,11 @@
-package com.wayne.controller;
+package com.wayne.erp.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.wayne.entity.Parts;
-import com.wayne.entity.Type;
-import com.wayne.exception.NotFoundException;
-import com.wayne.service.PartsService;
-import com.wayne.service.TypeService;
+import com.wayne.erp.controller.exceptionhandler.NotFoundException;
+import com.wayne.erp.entity.Parts;
+import com.wayne.erp.entity.Type;
+import com.wayne.erp.service.PartsService;
+import com.wayne.erp.service.TypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
