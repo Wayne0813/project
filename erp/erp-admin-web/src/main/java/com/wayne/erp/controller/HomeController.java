@@ -2,6 +2,7 @@ package com.wayne.erp.controller;
 
 import com.wayne.erp.entity.Employee;
 import com.wayne.erp.exception.PermissionsException;
+import com.wayne.erp.service.EmployeeLoginLogService;
 import com.wayne.erp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -27,8 +28,11 @@ public class HomeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private EmployeeLoginLogService employeeLoginLogService;
+
     @GetMapping("/")
-    public String loginPage(@CookieValue(value = "userTel", defaultValue = "null") String userTel,
+    public String loginPage(@CookieValue(value = "userTel", defaultValue = "") String userTel,
                             Model model){
         model.addAttribute("userTel", userTel);
         return "login";
@@ -52,9 +56,13 @@ public class HomeController {
         }
         session.setAttribute("curr_user", employee);
 
+        String ip = request.getRemoteAddr();
+        employeeLoginLogService.save(ip, employee.getId());
+
+
         if(remember != null){
             Cookie cookie = new Cookie("userTel", employee.getEmployeeTel());
-            cookie.setDomain("192.168.1.102");
+            cookie.setDomain("localhost");
             cookie.setPath("/");
             cookie.setMaxAge(60*60*24*7);
             cookie.setHttpOnly(true);
@@ -63,10 +71,11 @@ public class HomeController {
             Cookie[] cookies = request.getCookies();
             if(cookies != null){
                 for (Cookie cookie : cookies) {
-                    if("curr_user".equals(cookie.getName())){
-                        cookie.setDomain("192.168.1.102");
+                    if("userTel".equals(cookie.getName())){
+                        cookie.setDomain("localhost");
                         cookie.setPath("/");
                         cookie.setMaxAge(0);
+                        cookie.setHttpOnly(true);
                         response.addCookie(cookie);
                         break;
                     }
@@ -81,5 +90,12 @@ public class HomeController {
     public String homePage(){
         return "home";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("curr_user");
+        return "redirect:/";
+    }
+
 
 }

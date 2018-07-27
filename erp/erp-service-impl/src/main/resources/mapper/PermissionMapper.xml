@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wayne.erp.mapper.EmployeeMapper">
-  <resultMap id="BaseResultMap" type="com.wayne.erp.entity.Employee">
+<mapper namespace="com.wayne.erp.mapper.PermissionMapper">
+  <resultMap id="BaseResultMap" type="com.wayne.erp.entity.Permission">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="employee_name" jdbcType="VARCHAR" property="employeeName" />
-    <result column="employee_tel" jdbcType="VARCHAR" property="employeeTel" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="permission_name" jdbcType="VARCHAR" property="permissionName" />
+    <result column="permission_code" jdbcType="VARCHAR" property="permissionCode" />
+    <result column="permission_type" jdbcType="VARCHAR" property="permissionType" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,15 +70,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, employee_name, employee_tel, password, create_time, state
+    id, permission_name, permission_code, permission_type, pid, create_time, update_time, 
+    url
   </sql>
-  <select id="selectByExample" parameterType="com.wayne.erp.entity.EmployeeExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.wayne.erp.entity.PermissionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from employee
+    from permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,129 +98,114 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from employee
+    from permission
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from employee
+    delete from permission
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.wayne.erp.entity.EmployeeExample">
-    delete from employee
+  <delete id="deleteByExample" parameterType="com.wayne.erp.entity.PermissionExample">
+    delete from permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.wayne.erp.entity.Employee">
-    insert into employee (id, employee_name, employee_tel, 
-      password, create_time, state
-      )
-    values (#{id,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, #{employeeTel,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}
-      )
+  <insert id="insert" parameterType="com.wayne.erp.entity.Permission">
+    insert into permission (id, permission_name, permission_code, 
+      permission_type, pid, create_time, 
+      update_time, url)
+    values (#{id,jdbcType=INTEGER}, #{permissionName,jdbcType=VARCHAR}, #{permissionCode,jdbcType=VARCHAR}, 
+      #{permissionType,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wayne.erp.entity.Employee">
-    insert into employee
+  <insert id="insertSelective" parameterType="com.wayne.erp.entity.Permission">
+    insert into permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="employeeName != null">
-        employee_name,
+      <if test="permissionName != null">
+        permission_name,
       </if>
-      <if test="employeeTel != null">
-        employee_tel,
+      <if test="permissionCode != null">
+        permission_code,
       </if>
-      <if test="password != null">
-        password,
+      <if test="permissionType != null">
+        permission_type,
+      </if>
+      <if test="pid != null">
+        pid,
       </if>
       <if test="createTime != null">
         create_time,
       </if>
-      <if test="state != null">
-        state,
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="url != null">
+        url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="employeeName != null">
-        #{employeeName,jdbcType=VARCHAR},
+      <if test="permissionName != null">
+        #{permissionName,jdbcType=VARCHAR},
       </if>
-      <if test="employeeTel != null">
-        #{employeeTel,jdbcType=VARCHAR},
+      <if test="permissionCode != null">
+        #{permissionCode,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="permissionType != null">
+        #{permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="state != null">
-        #{state,jdbcType=INTEGER},
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.wayne.erp.entity.EmployeeExample" resultType="java.lang.Long">
-    select count(*) from employee
+  <select id="countByExample" parameterType="com.wayne.erp.entity.PermissionExample" resultType="java.lang.Long">
+    select count(*) from permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-
-    <resultMap id="employeeListByParams" type="com.wayne.erp.entity.Employee" extends="BaseResultMap">
-      <association property="role" javaType="com.wayne.erp.entity.Role">
-        <id column="role_id" property="id"/>
-        <result column="role_name" property="roleName"/>
-      </association>
-    </resultMap>
-
-    <select id="selectByParams" resultMap="employeeListByParams">
-      SELECT
-          e.*, r.id AS role_id, r.role_name
-      FROM
-          employee e,
-          employee_role er,
-          role r
-      WHERE
-          e.id = er.employee_id
-      AND r.id = er.role_id
-      <if test="roleId != null and roleId != ''">
-        AND r.id = 1
-      </if>
-      <if test="employeeName != null and employeeName != ''">
-        AND e.employee_name LIKE '%管理员%'
-      </if>
-      <if test="employTel != null and employTel != ''">
-        AND e.employee_tel LIKE '%1%'
-      </if>
-      <if test="employCreateTime != null and employCreateTime != ''">
-        AND e.create_time LIKE '%2018-%'
-      </if>
-    </select>
-
-
   <update id="updateByExampleSelective" parameterType="map">
-    update employee
+    update permission
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.employeeName != null">
-        employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      <if test="record.permissionName != null">
+        permission_name = #{record.permissionName,jdbcType=VARCHAR},
       </if>
-      <if test="record.employeeTel != null">
-        employee_tel = #{record.employeeTel,jdbcType=VARCHAR},
+      <if test="record.permissionCode != null">
+        permission_code = #{record.permissionCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+      <if test="record.permissionType != null">
+        permission_type = #{record.permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pid != null">
+        pid = #{record.pid,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.state != null">
-        state = #{record.state,jdbcType=INTEGER},
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -225,45 +213,55 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update employee
+    update permission
     set id = #{record.id,jdbcType=INTEGER},
-      employee_name = #{record.employeeName,jdbcType=VARCHAR},
-      employee_tel = #{record.employeeTel,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
+      permission_name = #{record.permissionName,jdbcType=VARCHAR},
+      permission_code = #{record.permissionCode,jdbcType=VARCHAR},
+      permission_type = #{record.permissionType,jdbcType=VARCHAR},
+      pid = #{record.pid,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      state = #{record.state,jdbcType=INTEGER}
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      url = #{record.url,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wayne.erp.entity.Employee">
-    update employee
+  <update id="updateByPrimaryKeySelective" parameterType="com.wayne.erp.entity.Permission">
+    update permission
     <set>
-      <if test="employeeName != null">
-        employee_name = #{employeeName,jdbcType=VARCHAR},
+      <if test="permissionName != null">
+        permission_name = #{permissionName,jdbcType=VARCHAR},
       </if>
-      <if test="employeeTel != null">
-        employee_tel = #{employeeTel,jdbcType=VARCHAR},
+      <if test="permissionCode != null">
+        permission_code = #{permissionCode,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="permissionType != null">
+        permission_type = #{permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="state != null">
-        state = #{state,jdbcType=INTEGER},
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wayne.erp.entity.Employee">
-    update employee
-    set employee_name = #{employeeName,jdbcType=VARCHAR},
-      employee_tel = #{employeeTel,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.wayne.erp.entity.Permission">
+    update permission
+    set permission_name = #{permissionName,jdbcType=VARCHAR},
+      permission_code = #{permissionCode,jdbcType=VARCHAR},
+      permission_type = #{permissionType,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      state = #{state,jdbcType=INTEGER}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

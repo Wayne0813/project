@@ -14,4 +14,12 @@
 <script src="/static/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/static/plugins/daterangepicker/moment.js"></script>
 <script src="/static/plugins/daterangepicker/daterangepicker.js"></script>
+<%--layer-js--%>
 <script src="/static/plugins/layer/layer.js"></script>
+
+<%--tree-js--%>
+<script src="/static/plugins/treegrid/js/jquery.treegrid.min.js"></script>
+<script src="/static/plugins/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+
+<!-- iCheck -->
+<script src="/static/plugins/iCheck/icheck.min.js"></script>

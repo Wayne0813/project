@@ -3,6 +3,8 @@ package com.wayne.erp.mapper;
 import com.wayne.erp.entity.Employee;
 import com.wayne.erp.entity.EmployeeExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface EmployeeMapper {
@@ -17,6 +19,8 @@ public interface EmployeeMapper {
     int insertSelective(Employee record);
 
     List<Employee> selectByExample(EmployeeExample example);
+
+    List<Employee> selectByParams(Map<String,Object> params);
 
     Employee selectByPrimaryKey(Integer id);
 

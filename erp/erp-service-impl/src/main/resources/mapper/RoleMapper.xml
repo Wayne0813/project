@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wayne.erp.mapper.EmployeeMapper">
-  <resultMap id="BaseResultMap" type="com.wayne.erp.entity.Employee">
+<mapper namespace="com.wayne.erp.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.wayne.erp.entity.Role">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="employee_name" jdbcType="VARCHAR" property="employeeName" />
-    <result column="employee_tel" jdbcType="VARCHAR" property="employeeTel" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, employee_name, employee_tel, password, create_time, state
+    id, role_name, role_code, create_time, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.wayne.erp.entity.EmployeeExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.wayne.erp.entity.RoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from employee
+    from role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,129 +94,113 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from employee
+    from role
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from employee
+    delete from role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.wayne.erp.entity.EmployeeExample">
-    delete from employee
+  <delete id="deleteByExample" parameterType="com.wayne.erp.entity.RoleExample">
+    delete from role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.wayne.erp.entity.Employee">
-    insert into employee (id, employee_name, employee_tel, 
-      password, create_time, state
-      )
-    values (#{id,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, #{employeeTel,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}
-      )
+  <insert id="insert" parameterType="com.wayne.erp.entity.Role">
+    insert into role (id, role_name, role_code, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.wayne.erp.entity.Employee">
-    insert into employee
+  <insert id="insertSelective" parameterType="com.wayne.erp.entity.Role" useGeneratedKeys="true" keyProperty="id">
+    insert into role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="employeeName != null">
-        employee_name,
+      <if test="roleName != null">
+        role_name,
       </if>
-      <if test="employeeTel != null">
-        employee_tel,
-      </if>
-      <if test="password != null">
-        password,
+      <if test="roleCode != null">
+        role_code,
       </if>
       <if test="createTime != null">
         create_time,
       </if>
-      <if test="state != null">
-        state,
+      <if test="updateTime != null">
+        update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="employeeName != null">
-        #{employeeName,jdbcType=VARCHAR},
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
       </if>
-      <if test="employeeTel != null">
-        #{employeeTel,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="state != null">
-        #{state,jdbcType=INTEGER},
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.wayne.erp.entity.EmployeeExample" resultType="java.lang.Long">
-    select count(*) from employee
+  <select id="countByExample" parameterType="com.wayne.erp.entity.RoleExample" resultType="java.lang.Long">
+    select count(*) from role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
 
-    <resultMap id="employeeListByParams" type="com.wayne.erp.entity.Employee" extends="BaseResultMap">
-      <association property="role" javaType="com.wayne.erp.entity.Role">
-        <id column="role_id" property="id"/>
-        <result column="role_name" property="roleName"/>
-      </association>
-    </resultMap>
+  <select id="selectWithPermission" resultMap="roleListWithPermission">
+    SELECT
+        r.*, p.id AS permission_id,
+        p.permission_name,
+        p.permission_code,
+        p.permission_type,
+        p.pid,
+        p.url,
+        p.create_time
+    FROM
+        role r
+    LEFT JOIN role_permission rp ON r.id = rp.role_id
+    LEFT JOIN permission p ON p.id = rp.permission_id
+  </select>
 
-    <select id="selectByParams" resultMap="employeeListByParams">
-      SELECT
-          e.*, r.id AS role_id, r.role_name
-      FROM
-          employee e,
-          employee_role er,
-          role r
-      WHERE
-          e.id = er.employee_id
-      AND r.id = er.role_id
-      <if test="roleId != null and roleId != ''">
-        AND r.id = 1
-      </if>
-      <if test="employeeName != null and employeeName != ''">
-        AND e.employee_name LIKE '%管理员%'
-      </if>
-      <if test="employTel != null and employTel != ''">
-        AND e.employee_tel LIKE '%1%'
-      </if>
-      <if test="employCreateTime != null and employCreateTime != ''">
-        AND e.create_time LIKE '%2018-%'
-      </if>
-    </select>
-
+  <resultMap id="roleListWithPermission" type="com.wayne.erp.entity.Role" extends="BaseResultMap">
+    <collection property="permissionList" ofType="com.wayne.erp.entity.Permission">
+      <id property="id" column="permission_id"/>
+      <result property="permissionName" column="permission_name"/>
+      <result property="permissionCode" column="permission_code"/>
+      <result property="permissionType" column="permission_type"/>
+      <result property="pid" column="pid"/>
+      <result property="url" column="url"/>
+      <result property="createTime" column="create_time"/>
+    </collection>
+  </resultMap>
 
   <update id="updateByExampleSelective" parameterType="map">
-    update employee
+    update role
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.employeeName != null">
-        employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      <if test="record.roleName != null">
+        role_name = #{record.roleName,jdbcType=VARCHAR},
       </if>
-      <if test="record.employeeTel != null">
-        employee_tel = #{record.employeeTel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+      <if test="record.roleCode != null">
+        role_code = #{record.roleCode,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.state != null">
-        state = #{record.state,jdbcType=INTEGER},
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -225,45 +208,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update employee
+    update role
     set id = #{record.id,jdbcType=INTEGER},
-      employee_name = #{record.employeeName,jdbcType=VARCHAR},
-      employee_tel = #{record.employeeTel,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
+      role_name = #{record.roleName,jdbcType=VARCHAR},
+      role_code = #{record.roleCode,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      state = #{record.state,jdbcType=INTEGER}
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wayne.erp.entity.Employee">
-    update employee
+  <update id="updateByPrimaryKeySelective" parameterType="com.wayne.erp.entity.Role">
+    update role
     <set>
-      <if test="employeeName != null">
-        employee_name = #{employeeName,jdbcType=VARCHAR},
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
       </if>
-      <if test="employeeTel != null">
-        employee_tel = #{employeeTel,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="roleCode != null">
+        role_code = #{roleCode,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="state != null">
-        state = #{state,jdbcType=INTEGER},
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wayne.erp.entity.Employee">
-    update employee
-    set employee_name = #{employeeName,jdbcType=VARCHAR},
-      employee_tel = #{employeeTel,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.wayne.erp.entity.Role">
+    update role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_code = #{roleCode,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      state = #{state,jdbcType=INTEGER}
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
