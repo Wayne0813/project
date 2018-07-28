@@ -20,7 +20,7 @@ import java.util.Map;
  * @date 2018/7/26
  */
 @Controller
-@RequestMapping("/employee")
+@RequestMapping("/manage/employee")
 public class EmployeeController {
 
     @Autowired
@@ -30,13 +30,13 @@ public class EmployeeController {
     public String listPage(@RequestParam(name = "p", defaultValue = "1", required = false) Integer pageNum,
                            Model model){
 
-       Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
 
         PageInfo<Employee> page = employeeService.findByParams(pageNum, params);
 
 
         model.addAttribute("page", page);
-        return "employee/list";
+        return "manage/employee/list";
     }
 
 }

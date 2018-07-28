@@ -49,12 +49,17 @@ public class PermissionController {
     @GetMapping("/edit/{id:\\d+}")
     public String permissionEditPage(@PathVariable Integer id, Model model){
 
+        Permission permission = permissionService.findPermissionById(id);
+        model.addAttribute("permission", permission);
+
         List<Permission> permissionListAndTypeIsMenu = permissionService.findPermissionByType(Permission.PERMISSION_TYPE_MENU);
+        permissionListAndTypeIsMenu.remove(permission);
+        List<Permission> sonPermissionListAndSoOn = permissionService.findSonPermissionListAndSoOn(permission.getId());
+        for (Permission sonPermission : sonPermissionListAndSoOn){
+            permissionListAndTypeIsMenu.remove(sonPermission);
+        }
         model.addAttribute("permissionListAndTypeIsMenu", permissionListAndTypeIsMenu);
 
-        Permission permission = permissionService.findPermissionById(id);
-
-        model.addAttribute("permission", permission);
         return "manage/permission/edit";
     }
 

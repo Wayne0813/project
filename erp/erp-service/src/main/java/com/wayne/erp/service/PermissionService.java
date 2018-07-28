@@ -2,6 +2,7 @@ package com.wayne.erp.service;
 
 import com.wayne.erp.entity.Permission;
 import com.wayne.erp.entity.Role;
+import com.wayne.erp.exception.PermissionsException;
 
 import java.util.List;
 
@@ -68,4 +69,25 @@ public interface PermissionService {
      * @param permissionIds 权限id
      */
     void saveRole(Role role, Integer[] permissionIds);
+
+    /**
+     * 查找当前id下的所有子权限，及其子子权限
+     * @param id 当前权限的id
+     * @return 子权限及其子子权限
+     */
+    List<Permission> findSonPermissionListAndSoOn(Integer id);
+
+    /**
+     * 修改角色对象
+     * @param role 角色对象
+     * @param permissionIds 角色具备的权限id
+     */
+    void editRole(Role role, Integer[] permissionIds);
+
+    /**
+     * 删除角色
+     * @param id 要删除的角色id
+     * @throws PermissionsException 该角色被员工占用
+     */
+    void deleteRole(Integer id) throws PermissionsException;
 }

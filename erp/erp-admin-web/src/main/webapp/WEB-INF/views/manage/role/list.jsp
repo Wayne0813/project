@@ -6,13 +6,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ERP - 系统管理 - 角色管理</title>
-    <%@include file="../../include/css.jsp"%>
+    <%@ include file="../../include/css.jsp"%>
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
 <div class="wrapper">
-<%@include file="../../include/header.jsp"%>
+<%@ include file="../../include/header.jsp"%>
 <jsp:include page="../../include/sider.jsp">
-    <jsp:param name="menu" value="manage_roles"/>
+    <jsp:param name="menu" value="manage_role"/>
 </jsp:include>
 <div class="content-wrapper">
 <section class="content-header">
@@ -36,20 +36,19 @@
                         <td>
                             角色名称：<strong>${role.roleName}</strong>
                             <span class="pull-right">
-                                <a style="color: #fff;" href="/manage/roles//edit/${role.id}"><i class="fa fa-pencil"></i></a>
-                                <a style="color: #fff;" class="delLink" rel="${role.id}" href="javascript:;"><i class="fa fa-trash"></i></a>
+                                <a style="color: #fff;" href="/manage/role/edit/${role.id}"><i class="fa fa-pencil"></i></a> &nbsp; &nbsp;
+                                <a style="color: #fff;" class="deleteBtn" rel="${role.id}" href="javascript:;"><i class="fa fa-trash"></i></a>
                             </span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <c:forEach items="${role.permissionList}" var="permission">
-                                <i class="fa fa-circle"></i> ${permission.permissionName}
+                                <i class="fa fa-circle"></i> ${permission.permissionName} &nbsp; &nbsp; &nbsp; &nbsp;
                             </c:forEach>
                         </td>
                     </tr>
                 </c:forEach>
-
                 </tbody>
             </table>
         </div>
@@ -61,6 +60,15 @@
 <script>
     $(function () {
         $('.tree').treegrid();
+
+        $(".deleteBtn").click(function () {
+            var id = $(this).attr("rel");
+            layer.confirm("确定要删除该角色?", function () {
+                window.location.href = "/manage/role/delete/" + id;
+            });
+
+        });
+
        /* //删除
         $(".delLink").click(function () {
             var id = $(this).attr("rel");
@@ -77,6 +85,11 @@
                 });
             })
         });*/
+
+       var msg = "${message}";
+       if(msg) {
+           layer.msg(msg);
+       }
     });
 </script>
 </body>

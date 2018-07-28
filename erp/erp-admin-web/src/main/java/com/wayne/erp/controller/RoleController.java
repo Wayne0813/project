@@ -1,7 +1,9 @@
 package com.wayne.erp.controller;
 
+import com.wayne.erp.controller.exceptionhandler.NotFoundException;
 import com.wayne.erp.entity.Permission;
 import com.wayne.erp.entity.Role;
+import com.wayne.erp.exception.PermissionsException;
 import com.wayne.erp.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +40,6 @@ public class RoleController {
         List<Permission> permissionList = permissionService.findAllPermission();
         model.addAttribute("permissionList", permissionList);
         return "manage/role/add";
-
     }
 
     @PostMapping("/add")
@@ -48,11 +49,43 @@ public class RoleController {
         return "redirect:/manage/role";
     }
 
-    @PostMapping("/edit/{id:\\d+}")
+    @GetMapping("/edit/{id:\\d+}")
     public String editPage(@PathVariable Integer id, Model model){
+        List<Permission> permissionList = permissionService.findAllPermission();
         Role role = permissionService.findRoleById(id);
+        for (Permission permission : permissionList) {
+            for (Permission perm : role.getPermissionList()) {
+                if(permission.getId().equals(perm.getId())) {
+                    permission.setIsChecked("checked");
+                }
+            }
+        }
+        model.addAttribute("permissionList", permissionList);
         model.addAttribute("role", role);
         return "manage/role/edit";
+    }
+
+    @PostMapping("/edit")
+    public String edit(Role role, Integer[] permissionId, RedirectAttributes attributes){
+        permissionService.editRole(role, permissionId);
+        attributes.addFlashAttribute("message", "修改成功!");
+        return "redirect:/manage/role";
+    }
+
+    @GetMapping("/delete/{id:\\d+}")
+    public String delete(@PathVariable Integer id,  RedirectAttributes attributes){
+        if(permissionService.findRoleById(id) == null){
+            throw new NotFoundException();
+        }
+
+        try {
+            permissionService.deleteRole(id);
+            attributes.addFlashAttribute("message", "删除成功!");
+        } catch (PermissionsException e) {
+            attributes.addFlashAttribute("message", e.getMessage());
+        }
+
+        return "redirect:/manage/role";
     }
 
 

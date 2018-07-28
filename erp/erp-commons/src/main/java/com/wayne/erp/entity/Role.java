@@ -38,6 +38,8 @@ public class Role implements Serializable {
      */
     private List<Permission> permissionList;
 
+
+
     public List<Permission> getPermissionList() {
         return permissionList;
     }
