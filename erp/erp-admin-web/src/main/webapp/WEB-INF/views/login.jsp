@@ -32,11 +32,7 @@
                 <div class="col-xs-8">
                     <div class="checkbox">
                         <label>
-                            <input
-                            <c:if test="${not empty userTel}">
-                                    checked
-                            </c:if>
-                            name="remember" type="checkbox"> 记住账号
+                            <input name="remember" value="remember" type="checkbox"> 记住我
                         </label>
                     </div>
                 </div>

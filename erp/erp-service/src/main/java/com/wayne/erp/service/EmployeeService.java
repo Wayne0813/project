@@ -14,20 +14,17 @@ import java.util.Map;
 public interface EmployeeService {
 
     /**
-     * 登录验证
-     * @param userTel 登录手机号
-     * @param password 密码
-     * @return 对象
-     * @throws PermissionsException 账号密码错误
-     */
-    Employee findByUserTel(String userTel, String password) throws PermissionsException;
-
-
-    /**
      * 查找并分页，如果需要按条件查找，只需给params put值即可
      * @param pageNum 页码
      * @param params 参数
      * @return 分页对象
      */
     PageInfo<Employee> findByParams(Integer pageNum, Map<String,Object> params);
+
+    /**
+     * 通过手机号查找对象
+     * @param userTel 手机号
+     * @return 对象
+     */
+    Employee findByEmployeeTel(String userTel);
 }

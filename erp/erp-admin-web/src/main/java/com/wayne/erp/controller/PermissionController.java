@@ -54,10 +54,13 @@ public class PermissionController {
 
         List<Permission> permissionListAndTypeIsMenu = permissionService.findPermissionByType(Permission.PERMISSION_TYPE_MENU);
         permissionListAndTypeIsMenu.remove(permission);
+
         List<Permission> sonPermissionListAndSoOn = permissionService.findSonPermissionListAndSoOn(permission.getId());
+
         for (Permission sonPermission : sonPermissionListAndSoOn){
             permissionListAndTypeIsMenu.remove(sonPermission);
         }
+
         model.addAttribute("permissionListAndTypeIsMenu", permissionListAndTypeIsMenu);
 
         return "manage/permission/edit";

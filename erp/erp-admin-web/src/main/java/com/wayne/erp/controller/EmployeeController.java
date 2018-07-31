@@ -5,6 +5,7 @@ import com.wayne.erp.entity.Employee;
 import com.wayne.erp.entity.Parts;
 import com.wayne.erp.entity.Type;
 import com.wayne.erp.service.EmployeeService;
+import com.wayne.erp.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,6 @@ public class EmployeeController {
         Map<String, Object> params = new HashMap<>();
 
         PageInfo<Employee> page = employeeService.findByParams(pageNum, params);
-
 
         model.addAttribute("page", page);
         return "manage/employee/list";

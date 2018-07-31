@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -20,65 +21,73 @@
         员工管理
     </h1>
 </section>
+<!-- Main content -->
 <section class="content">
+    <div class="box no-border">
+        <div class="box-body">
+            <form class="form-inline">
+                <input type="text" name="nameMobile" placeholder="账号或手机号码" class="form-control" value="${param.userTel}">
+                <select name="roleId" class="form-control">
+                    <option value="">所有账号</option>
+                    <%--<c:forEach items="${rolesList}" var="role">
+                        <option value="${role.id}" ${param.roleId == role.id ? 'selected' : ''}>${role.roleName}</option>
+                    </c:forEach>--%>
+                </select>
+                <button class="btn btn-default">搜索</button>
+            </form>
+        </div>
+    </div>
     <div class="box">
-        <div class="box-header with-border">
-            <h3 class="box-title">员工管理</h3>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool"  title="Collapse">
-                    <i class="fa fa-plus"></i> 添加员工</button>
+        <div class="box-header">
+            <div class="box-tools">
+                <a href="/manage/employee/new" class="btn btn-success btn-sm">
+                    <i class="fa fa-plus"></i> 新增账号
+                </a>
             </div>
         </div>
         <div class="box-body">
             <table class="table">
                 <thead>
                 <tr>
-                    <th>姓名</th>
-                    <th>部门</th>
-                    <th>手机</th>
+                    <th>账号</th>
+                    <th>手机号码</th>
+                    <th>角色</th>
+                    <th>状态</th>
+                    <th>创建时间</th>
                     <th>#</th>
                 </tr>
                 </thead>
                 <tbody>
-
-                <c:forEach items="${page.list}" var="employee">
+                <%--<c:forEach items="${employeeList}" var="employee">
                     <tr>
                         <td>${employee.employeeName}</td>
-                        <td>${employee.role.roleName}</td>
                         <td>${employee.employeeTel}</td>
                         <td>
-                            <a href="">禁用</a>
-                            <a href="">删除</a>
-                            <a href="">编辑</a>
+                            <c:forEach items="${employee.roleList}" var="role">
+                                ${role.roleName}
+                            </c:forEach>
+                        </td>
+                        <td>
+                                ${employee.state == 1 ? "正常" : "禁用"}
+                        </td>
+                        <td>
+                            <fmt:formatDate value="${employee.createTime}"/>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning btn-xs" href="javascript:;" title="禁用"><i class="fa fa-lock"></i></a>
+                            <a class="btn btn-primary btn-xs" href="/manage/employee/${employee.id}/edit"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-danger btn-xs delLink" href="javascript:;" title="删除"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
-                </c:forEach>
+                </c:forEach>--%>
                 </tbody>
             </table>
-            <ul id="pagination" class="pagination pull-right"></ul>
         </div>
     </div>
 </section>
 </div>
-<%@ include file="../../include/footer.jsp"%>
 </div>
-<%@ include file="../../include/js.jsp"%>
-<script>
-    $(function(){
 
-        // 分页
-        $("#pagination").twbsPagination({
-            totalPages : 10,
-            visiblePages : 3,
-            first : '<<',
-            last:'>>',
-            prev:'<',
-            next:'>',
-            href:"?p={{number}}"
-        });
-
-    });
-</script>
+<%@include file="../../include/js.jsp"%>
 </body>
 </html>
-

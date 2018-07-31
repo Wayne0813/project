@@ -29,36 +29,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    private Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
-
-    /**
-     * 登录验证
-     * @param userTel 登录手机号
-     * @param password 密码
-     * @return 对象
-     * @throws PermissionsException 账号密码错误
-     */
-    @Override
-    public Employee findByUserTel(String userTel, String password) throws PermissionsException {
-        password = DigestUtils.md5Hex(password + Constant.PASSWORD_SALT);
-        EmployeeExample employeeExample = new EmployeeExample();
-        employeeExample.createCriteria().andEmployeeTelEqualTo(userTel);
-        List<Employee> employeeList = employeeMapper.selectByExample(employeeExample);
-
-        if(employeeList == null){
-            throw new PermissionsException("手机号或密码错误!");
-        }
-        if(employeeList.size() == 0){
-            throw new PermissionsException("手机号或密码错误!");
-        }
-        Employee employee = employeeList.get(0);
-        if(!employee.getPassword().equals(password)){
-            throw new PermissionsException("手机号或密码错误!");
-        }
-        logger.debug("{}--{}, 登录系统,时间{}", employee.getEmployeeName(), employee.getEmployeeTel(), new Date());
-        return employee;
-    }
-
     /**
      * 查找并分页，如果需要按条件查找，只需给params put值即可
      *
@@ -75,5 +45,25 @@ public class EmployeeServiceImpl implements EmployeeService {
         PageInfo<Employee> page = new PageInfo<>(employeeList);
 
         return page;
+    }
+
+    /**
+     * 通过手机号查找对象
+     *
+     * @param userTel 手机号
+     * @return 对象
+     */
+    @Override
+    public Employee findByEmployeeTel(String userTel) {
+        EmployeeExample employeeExample = new EmployeeExample();
+        employeeExample.createCriteria().andEmployeeTelEqualTo(userTel);
+
+        List<Employee> employeeList = employeeMapper.selectByExample(employeeExample);
+        Employee employee = null;
+        if(employeeList != null && employeeList.size() > 0){
+            employee = employeeList.get(0);
+
+        }
+        return employee;
     }
 }

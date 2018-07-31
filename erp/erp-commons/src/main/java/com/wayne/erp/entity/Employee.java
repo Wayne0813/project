@@ -7,6 +7,10 @@ import java.util.Date;
  * @author 
  */
 public class Employee implements Serializable {
+
+    public static final Integer EMPLOYEE_STATE_FROZEN = 0;
+    public static final Integer EMPLOYEE_STATE_SUCCESS = 1;
+
     /**
      * 员工ID
      */
