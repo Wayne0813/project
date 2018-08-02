@@ -3,6 +3,7 @@ package com.wayne.erp.controller;
 import com.wayne.erp.entity.Permission;
 import com.wayne.erp.exception.PermissionsException;
 import com.wayne.erp.service.PermissionService;
+import com.wayne.erp.shiro.MyFilterChainDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,9 @@ public class PermissionController {
     @Autowired
     private PermissionService permissionService;
 
+    @Autowired
+    private MyFilterChainDefinition myFilterChainDefinition;
+
     @GetMapping
     public String permissionListPage(Model model){
         List<Permission> permissionList = permissionService.findAllPermission();
@@ -43,6 +47,7 @@ public class PermissionController {
     public String permissionAdd(Permission permission, RedirectAttributes attributes){
         permissionService.save(permission);
         attributes.addFlashAttribute("message", "新增成功!");
+        myFilterChainDefinition.updatePermission();
         return "redirect:/manage/permission";
     }
 
@@ -70,6 +75,7 @@ public class PermissionController {
     public String permissionEdit(Permission permission, RedirectAttributes attributes){
         permissionService.edit(permission);
         attributes.addFlashAttribute("message", "修改成功!");
+        myFilterChainDefinition.updatePermission();
         return "redirect:/manage/permission";
     }
 
@@ -78,6 +84,7 @@ public class PermissionController {
         try {
             permissionService.delete(id);
             attributes.addFlashAttribute("message", "删除成功");
+            myFilterChainDefinition.updatePermission();
         } catch (PermissionsException e) {
             attributes.addFlashAttribute("message", e.getMessage());
         }

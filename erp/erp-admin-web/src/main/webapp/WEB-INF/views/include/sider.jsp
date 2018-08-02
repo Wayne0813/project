@@ -46,7 +46,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="/parts"><i class="fa fa-circle-o"></i>配件管理</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>类型管理</a></li>
+                    <li><a href="/type"><i class="fa fa-circle-o"></i>类型管理</a></li>
                     <li><a href="/parts/add"><i class="fa fa-circle-o"></i>配件入库</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>入库查询</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>出库查询</a></li>

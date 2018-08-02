@@ -116,7 +116,7 @@
       #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.wayne.erp.entity.Employee">
+  <insert id="insertSelective" parameterType="com.wayne.erp.entity.Employee" useGeneratedKeys="true" keyProperty="id">
     insert into employee
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -167,34 +167,55 @@
   </select>
 
     <resultMap id="employeeListByParams" type="com.wayne.erp.entity.Employee" extends="BaseResultMap">
-      <association property="role" javaType="com.wayne.erp.entity.Role">
-        <id column="role_id" property="id"/>
-        <result column="role_name" property="roleName"/>
-      </association>
+      <collection property="roleList" ofType="com.wayne.erp.entity.Role">
+        <id property="id" column="roleId"/>
+        <result property="updateTime" column="roleUpdateTime"/>
+        <result property="createTime" column="roleCreateTime"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="roleName" column="role_name"/>
+      </collection>
     </resultMap>
 
     <select id="selectByParams" resultMap="employeeListByParams">
       SELECT
-          e.*, r.id AS role_id, r.role_name
+      employee.*, role.id AS roleId,
+      role.role_code,
+      role.role_name,
+      role.create_time AS roleCreateTime,
+      role.update_time AS roleUpdateTime
       FROM
-          employee e,
-          employee_role er,
-          role r
-      WHERE
-          e.id = er.employee_id
-      AND r.id = er.role_id
-      <if test="roleId != null and roleId != ''">
-        AND r.id = 1
-      </if>
-      <if test="employeeName != null and employeeName != ''">
-        AND e.employee_name LIKE '%管理员%'
-      </if>
-      <if test="employTel != null and employTel != ''">
-        AND e.employee_tel LIKE '%1%'
-      </if>
-      <if test="employCreateTime != null and employCreateTime != ''">
-        AND e.create_time LIKE '%2018-%'
-      </if>
+      employee
+      LEFT JOIN employee_role ON employee.id = employee_role.employee_id
+      LEFT JOIN role ON role.id = employee_role.role_id
+      <choose>
+        <when test="roleId != null and roleId != 0">
+          inner JOIN (
+          SELECT
+          employee.id
+          FROM
+          employee
+          INNER JOIN employee_role ON employee_role.employee_id = employee.id
+          <where>
+            employee_role.role_id = #{roleId}
+            <if test="nameMobile != null and nameMobile != ''">
+              and( (employee.employee_name like concat('%',#{nameMobile},'%'))
+              or
+              (employee.employee_tel like concat('%',#{nameMobile},'%')))
+            </if>
+          </where>
+          ) AS temp ON employee.id = temp.id
+        </when>
+        <otherwise>
+          <where>
+            <if test="nameMobile != null and nameMobile != ''">
+              (employee.employee_name like concat('%',#{nameMobile},'%'))
+              or
+              (employee.employee_tel like concat('%',#{nameMobile},'%'))
+            </if>
+          </where>
+        </otherwise>
+      </choose>
+      order by employee.id desc
     </select>
 
 

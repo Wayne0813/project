@@ -90,4 +90,18 @@ public interface PermissionService {
      * @throws PermissionsException 该角色被员工占用
      */
     void deleteRole(Integer id) throws PermissionsException;
+
+    /**
+     * 根据员工id查找角色
+     * @param id 员工id
+     * @return 角色集合
+     */
+    List<Role> findRoleByEmployeeId(Integer id);
+
+    /**
+     * 根据角色id查找权限
+     * @param id 角色id
+     * @return 权限集合
+     */
+    List<Permission> findPermissionByRoleId(Integer id);
 }

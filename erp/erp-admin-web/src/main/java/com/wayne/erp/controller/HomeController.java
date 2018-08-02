@@ -40,6 +40,7 @@ public class HomeController {
     @GetMapping("/")
     public String loginPage(){
         Subject subject = SecurityUtils.getSubject();
+
         if(subject.isAuthenticated()){
             subject.logout();
         }
@@ -79,6 +80,11 @@ public class HomeController {
             attributes.addFlashAttribute("message", "登录失败!");
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/401")
+    public String permissionError(){
+        return "error/401";
     }
 
 }

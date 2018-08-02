@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!-- 顶部导航栏部分 -->
 <header class="main-header">
     <a href="index2.html" class="logo">

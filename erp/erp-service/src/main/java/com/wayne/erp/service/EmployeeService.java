@@ -5,6 +5,7 @@ import com.wayne.erp.entity.Employee;
 import com.wayne.erp.entity.Parts;
 import com.wayne.erp.exception.PermissionsException;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +20,7 @@ public interface EmployeeService {
      * @param params 参数
      * @return 分页对象
      */
-    PageInfo<Employee> findByParams(Integer pageNum, Map<String,Object> params);
+    List<Employee> findByParams(Integer pageNum, Map<String,Object> params);
 
     /**
      * 通过手机号查找对象
@@ -27,4 +28,37 @@ public interface EmployeeService {
      * @return 对象
      */
     Employee findByEmployeeTel(String userTel);
+
+    /**
+     * 保存员工
+     * @param employee 员工对象
+     * @param roleIds 员工角色id
+     */
+    void saveEmployee(Employee employee, Integer[] roleIds);
+
+    /**
+     * 通过id查找员工信息
+     * @param id 需要查找的id
+     * @return 员工对象
+     */
+    Employee findById(Integer id);
+
+    /**
+     * 修改员工信息
+     * @param employee 员工对象
+     * @param roleIds 角色id
+     */
+    void editEmployee(Employee employee, Integer[] roleIds);
+
+    /**
+     * 根据id修改用户状态
+     * @param id 需要修改的id
+     */
+    void editEmployeeStateById(Integer id);
+
+    /**
+     * 根据id删除员工对象
+     * @param id id
+     */
+    void deleteEmployee(Integer id);
 }

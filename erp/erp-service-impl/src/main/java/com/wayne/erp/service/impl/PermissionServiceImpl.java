@@ -248,8 +248,27 @@ public class PermissionServiceImpl implements PermissionService {
         rolePermissionMapper.deleteByExample(rolePermissionExample);
     }
 
+    /**
+     * 根据员工id查找角色
+     *
+     * @param id 员工id
+     * @return 角色集合
+     */
+    @Override
+    public List<Role> findRoleByEmployeeId(Integer id) {
+        return roleMapper.selectByEmployeeId(id);
+    }
 
-
+    /**
+     * 根据角色id查找权限
+     *
+     * @param id 角色id
+     * @return 权限集合
+     */
+    @Override
+    public List<Permission> findPermissionByRoleId(Integer id) {
+        return permissionMapper.selectByRoleId(id);
+    }
 
 
     /**

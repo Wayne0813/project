@@ -2,6 +2,7 @@ package com.wayne.erp.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 
@@ -41,14 +42,14 @@ public class Employee implements Serializable {
      */
     private Integer state;
 
-    private Role role;
+    private List<Role> roleList;
 
-    public Role getRole() {
-        return role;
+    public List<Role> getRoleList() {
+        return roleList;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 
     public static long getSerialVersionUID() {
@@ -114,7 +115,7 @@ public class Employee implements Serializable {
                 ", password='" + password + '\'' +
                 ", createTime=" + createTime +
                 ", state=" + state +
-                ", role=" + role +
+                ", roleList=" + roleList +
                 '}';
     }
 }
