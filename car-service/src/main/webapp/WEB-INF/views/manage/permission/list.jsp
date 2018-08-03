@@ -41,7 +41,7 @@
                         </thead>
                         <tbody>
 
-                       <%-- <c:forEach items="${permissionList}" var="permission">
+                        <c:forEach items="${permissionList}" var="permission">
                             <tr class="treegrid-${permission.id}
                                 <c:if test="${permission.pid != 0}">
                                     treegrid-parent-${permission.pid}
@@ -55,7 +55,7 @@
                                     <a class="btn btn-danger btn-xs deleteBtn" rel="${permission.id}"  href="javascript:;" title="删除"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
-                        </c:forEach>--%>
+                        </c:forEach>
 
                         </tbody>
                     </table>

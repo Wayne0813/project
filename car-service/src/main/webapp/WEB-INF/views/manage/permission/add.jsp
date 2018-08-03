@@ -55,7 +55,7 @@
                             <label>父权限</label>
                             <select name="pid" class="form-control">
                                 <option value="0">顶级菜单</option>
-                                <c:forEach items="${permissionListAndTypeIsMenu}" var="permission">
+                                <c:forEach items="${permissionList}" var="permission">
                                     <option value="${permission.id}">${permission.permissionName}</option>
                                 </c:forEach>
                             </select>
