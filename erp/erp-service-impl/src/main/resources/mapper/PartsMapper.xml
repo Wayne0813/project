@@ -213,8 +213,17 @@
       and parts_name LIKE concat('%', #{partsName},'%')
     </if>
   </select>
+    <select id="findByOrderId" resultType="com.wayne.erp.entity.Parts">
+      SELECT
+          parts.*, order_parts.num
+      FROM
+          order_parts
+      INNER JOIN parts ON order_parts.parts_id = parts.id
+      WHERE
+          order_parts.order_id = #{orderId}
+    </select>
 
-  <update id="updateByExampleSelective" parameterType="map">
+    <update id="updateByExampleSelective" parameterType="map">
     update parts
     <set>
       <if test="record.id != null">

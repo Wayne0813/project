@@ -33,4 +33,6 @@ public interface PartsMapper {
     int updateByPrimaryKeySelective(Parts record);
 
     int updateByPrimaryKey(Parts record);
+
+    List<Parts> findByOrderId(Integer orderId);
 }
