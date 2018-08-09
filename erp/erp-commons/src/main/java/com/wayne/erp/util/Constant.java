@@ -12,6 +12,8 @@ public class Constant {
 
     public static final String SEND_PAGE_MASSAGE_KEY = "message";
 
+    public static final String SEND_PAGE_MASSAGE_CONTENT = "操作成功!";
+
     public static final String SEND_PAGE_MASSAGE_ADD_SECCESS = "新增成功!";
     public static final String SEND_PAGE_MASSAGE_ADD_ERROR = "新增失败!";
 

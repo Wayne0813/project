@@ -33,6 +33,9 @@
         <jackson-version>2.8.10</jackson-version>
         <pagehelper-version>5.0.0</pagehelper-version>
         <guava-version>23.0</guava-version>
+        <activemq-version>5.15.4</activemq-version>
+        <jms-version>4.3.9.RELEASE</jms-version>
+
     </properties>
 
     <dependencyManagement>
@@ -164,6 +167,17 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-all</artifactId>
+                <version>${activemq-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>${jms-version}</version>
             </dependency>
 
         </dependencies>
