@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo
+       http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!--服务名称，自定义-->
+    <dubbo:application name="ErpAdminWeb"/>
+
+    <!--dubbo的协议和端口-->
+    <dubbo:registry address="zookeeper://192.168.1.102:2181"/>
+
+    <!--接收消费服务-->
+    <dubbo:reference interface="com.wayne.erp.service.EmployeeService" id="employeeService"/>
+    <dubbo:reference interface="com.wayne.erp.service.PermissionService" id="permissionService"/>
+    <dubbo:reference interface="com.wayne.erp.service.EmployeeLoginLogService" id="employeeLoginLogService"/>
+    <dubbo:reference interface="com.wayne.erp.service.PartsService" id="partsService"/>
+    <dubbo:reference interface="com.wayne.erp.service.TypeService" id="typeService"/>
+
+
+</beans>

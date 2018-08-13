@@ -21,7 +21,6 @@ import java.util.List;
  * @author LV
  * @date 2018/7/27
  */
-@Service
 public class PermissionServiceImpl implements PermissionService {
 
     @Autowired

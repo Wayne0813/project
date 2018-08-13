@@ -19,7 +19,6 @@ import java.util.Map;
  * @author LV
  * @date 2018/7/24
  */
-@Service
 public class PartsServiceImpl implements PartsService {
     private Logger logger = LoggerFactory.getLogger(PartsServiceImpl.class);
 

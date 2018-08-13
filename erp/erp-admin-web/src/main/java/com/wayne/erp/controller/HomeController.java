@@ -27,10 +27,10 @@ import java.util.Date;
 @Controller
 public class HomeController {
 
+    private Logger logger = LoggerFactory.getLogger(HomeController.class);
+
     @Autowired
     private EmployeeLoginLogService employeeLoginLogService;
-
-    private Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @GetMapping("/home")
     public String homePage(){

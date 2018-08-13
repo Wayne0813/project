@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
  * @author LV
  * @date 2018/7/26
  */
-@Service
 public class EmployeeLoginLogServiceImpl implements EmployeeLoginLogService {
 
     @Autowired

@@ -1,10 +1,7 @@
 package com.wayne.erp.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.wayne.erp.entity.Employee;
-import com.wayne.erp.entity.Parts;
 import com.wayne.erp.entity.Role;
-import com.wayne.erp.entity.Type;
 import com.wayne.erp.service.EmployeeService;
 import com.wayne.erp.service.PermissionService;
 import com.wayne.erp.util.Constant;

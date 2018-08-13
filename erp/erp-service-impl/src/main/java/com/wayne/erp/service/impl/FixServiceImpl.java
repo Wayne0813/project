@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.jms.JMSException;
@@ -25,16 +24,12 @@ import java.util.List;
  * @author LV
  * @date 2018/8/8
  */
-@Service
 public class FixServiceImpl implements FixService {
 
     private Logger logger = LoggerFactory.getLogger(FixServiceImpl.class);
 
     @Autowired
     private JmsTemplate jmsTemplate;
-
-    @Autowired
-    private FixService fixService;
 
     @Autowired
     private FixOrderMapper fixOrderMapper;

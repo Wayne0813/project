@@ -19,7 +19,6 @@ import java.util.Map;
  * @author LV
  * @date 2018/7/24
  */
-@Service
 public class TypeServiceImpl implements TypeService {
 
     private Logger logger = LoggerFactory.getLogger(TypeServiceImpl.class);

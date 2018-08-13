@@ -1,9 +1,6 @@
 package com.wayne.erp.service;
 
-import com.github.pagehelper.PageInfo;
 import com.wayne.erp.entity.Employee;
-import com.wayne.erp.entity.Parts;
-import com.wayne.erp.exception.PermissionsException;
 
 import java.util.List;
 import java.util.Map;

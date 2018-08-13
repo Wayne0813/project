@@ -25,7 +25,6 @@ import java.util.Map;
  * @author LV
  * @date 2018/7/26
  */
-@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
