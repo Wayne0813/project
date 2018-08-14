@@ -11,14 +11,11 @@
     <dubbo:application name="ErpAdminWeb"/>
 
     <!--dubbo的协议和端口-->
-    <dubbo:registry address="zookeeper://192.168.1.102:2181"/>
+    <dubbo:registry address="zookeeper://111.231.208.152:2181"/>
 
     <!--接收消费服务-->
-    <dubbo:reference interface="com.wayne.erp.service.EmployeeService" id="employeeService"/>
-    <dubbo:reference interface="com.wayne.erp.service.PermissionService" id="permissionService"/>
-    <dubbo:reference interface="com.wayne.erp.service.EmployeeLoginLogService" id="employeeLoginLogService"/>
-    <dubbo:reference interface="com.wayne.erp.service.PartsService" id="partsService"/>
-    <dubbo:reference interface="com.wayne.erp.service.TypeService" id="typeService"/>
-
+    <dubbo:reference interface="com.wayne.erp.service.EmployeeService" id="employeeService" timeout="3000"/>
+    <dubbo:reference interface="com.wayne.erp.service.PermissionService" id="permissionService" timeout="3000"/>
+    <dubbo:reference interface="com.wayne.erp.service.EmployeeLoginLogService" id="employeeLoginLogService" timeout="3000"/>
 
 </beans>

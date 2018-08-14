@@ -16,7 +16,7 @@ import java.util.List;
  * @author LV
  * @date 2018/8/1
  */
-public class MyFilterChainDefinition{
+public class MyFilterChainDefinition {
 
     @Autowired
     private PermissionService permissionService;
