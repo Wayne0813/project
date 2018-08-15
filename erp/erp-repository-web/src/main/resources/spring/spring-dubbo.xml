@@ -8,12 +8,15 @@
        http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
     <!--服务名称，自定义-->
-    <dubbo:application name="ErpAdminWeb"/>
+    <dubbo:application name="ErpFrontWeb"/>
 
     <!--dubbo的协议和端口-->
     <dubbo:registry address="zookeeper://111.231.208.152:2181"/>
 
     <!--接收消费服务-->
+    <dubbo:reference interface="com.wayne.erp.service.PartsService" id="partsService" timeout="5000"/>
+    <dubbo:reference interface="com.wayne.erp.service.TypeService" id="typeService" timeout="5000"/>
+
     <dubbo:reference interface="com.wayne.erp.service.EmployeeService" id="employeeService" timeout="5000"/>
     <dubbo:reference interface="com.wayne.erp.service.PermissionService" id="permissionService" timeout="5000"/>
     <dubbo:reference interface="com.wayne.erp.service.EmployeeLoginLogService" id="employeeLoginLogService" timeout="5000"/>
