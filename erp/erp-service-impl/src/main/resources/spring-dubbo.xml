@@ -16,7 +16,7 @@
     <!--dubbo的协议和端口 添加host可以指定使用的网卡-->
     <!--<dubbo:protocol host="111.231.208.152" name="dubbo" port="20880"/>-->
 
-    <dubbo:protocol host="192.168.1.102" name="dubbo" port="20880"/>
+    <!--<dubbo:protocol host="192.168.1.102" name="dubbo" port="20880"/>-->
 
     <!-- 将bin放入容器 -->
     <bean id="carService" class="com.wayne.erp.service.impl.CarServiceImpl"/>

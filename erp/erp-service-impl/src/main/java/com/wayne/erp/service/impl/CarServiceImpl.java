@@ -7,7 +7,6 @@ import com.wayne.erp.mapper.CarMapper;
 import com.wayne.erp.mapper.CustomerMapper;
 import com.wayne.erp.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

@@ -36,6 +36,7 @@
         <guava-version>23.0</guava-version>
         <activemq-version>5.15.4</activemq-version>
         <jms-version>4.3.9.RELEASE</jms-version>
+        <joda-version>2.1</joda-version>
 
     </properties>
 
@@ -170,6 +171,7 @@
                 <version>${guava-version}</version>
             </dependency>
 
+            <!-- 消息中间件 -->
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-all</artifactId>
@@ -179,6 +181,29 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jms</artifactId>
                 <version>${jms-version}</version>
+            </dependency>
+
+            <!-- 定时任务 -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz-jobs</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-version}</version>
             </dependency>
 
         </dependencies>

@@ -33,4 +33,6 @@ public interface OrderMapper {
     List<Order> findUndonePageByParam(Map<String,Object> queryMap);
 
     Order findWithCarInfoById(Integer id);
+
+    List<Order> selectByWithDaily(Map<String,String> params);
 }

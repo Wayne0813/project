@@ -4,7 +4,6 @@ import com.wayne.erp.entity.EmployeeLoginLog;
 import com.wayne.erp.mapper.EmployeeLoginLogMapper;
 import com.wayne.erp.service.EmployeeLoginLogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * @author LV

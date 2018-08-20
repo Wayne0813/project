@@ -1,23 +1,12 @@
 package com.wayne.erp.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.wayne.erp.entity.*;
-import com.wayne.erp.exception.PermissionsException;
 import com.wayne.erp.mapper.EmployeeMapper;
 import com.wayne.erp.mapper.EmployeeRoleMapper;
-import com.wayne.erp.mapper.RoleMapper;
 import com.wayne.erp.service.EmployeeService;
-import com.wayne.erp.service.PermissionService;
-import com.wayne.erp.util.Constant;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
