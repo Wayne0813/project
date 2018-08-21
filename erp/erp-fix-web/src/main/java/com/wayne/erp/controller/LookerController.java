@@ -68,6 +68,10 @@ public class LookerController {
     }
 
 
+    /**
+     * 获得当前登录对象
+     * @return
+     */
     private Employee getCurrEmployee() {
         Subject subject = SecurityUtils.getSubject();
         Employee employee = (Employee) subject.getPrincipal();
