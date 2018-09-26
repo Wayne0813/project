@@ -57,14 +57,14 @@ public class LookerController {
         FixOrder fixOrder = fixService.findFixOrderByOrderId(id);
         model.addAttribute("curr_employee_id", getCurrEmployee().getId());
         model.addAttribute("fixOrder", fixOrder);
-        return "fix/detail";
+        return "looker/detail";
     }
 
     @GetMapping("/done/{id:\\d+}")
     public String done(@PathVariable Integer id, RedirectAttributes attributes) {
         fixService.editFixOrderStateById(id, Order.ORDER_STATE_SETTLEMENT, getCurrEmployee());
         attributes.addFlashAttribute(Constant.SEND_PAGE_MASSAGE_KEY, Constant.SEND_PAGE_MASSAGE_CONTENT);
-        return "redirect:/fix/list";
+        return "redirect:/looker/list";
     }
 
 
